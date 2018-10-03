@@ -187,7 +187,7 @@ direct the selection of the relevant axes and signals to use when plotting
 data from an event stream.
 
 There are two different locations where the 
-``hints` dictionary is created.
+``hints`` dictionary is created.
 
 1. during the specification of an ophyd :class:`Device`
 1. configuration of the ``start`` document by a :mod:`bluesky` plan

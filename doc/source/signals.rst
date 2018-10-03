@@ -67,5 +67,63 @@ With ophyd v1.2.0 or higher, use :attr:`kind` instead of setting
 the :attr:`hints` attribute of the :class:`Device`.  See 
 :ref:`hints_fields` for more details.
 
+.. index:: labels attribute
+.. _labels:
+
+:attr:`labels`
+-------------
+
+:class:`Signal` and :class:`Device` now accept 
+a :attr:`labels` attribute.  The value is a list of text strings
+--- presumed but not (yet) forced to be strings --- which the user can use
+for grouping and displaying available hardware or other ophyd constructs. 
+The labels are accessible via
+an attribute ``_ophyd_labels_``, so named to facilitate duck-typing across
+libraries. For example, the bluesky IPython "magics" use this to identify
+objects for the purpose of displaying them in labeled groups.
+
+The ``wa`` (IPython magic command) groups items by labels.  Here is an example:
+
+.. code-block:: python
+
+	m1 = EpicsMotor('prj:m1', name='m1', labels=("general",))
+	m2 = EpicsMotor('prj:m2', name='m2', labels=("general",))
+
+	class MyRig(Device):
+		t = Component(EpicsMotor, "m5", labels=("rig",),)
+		l = Component(EpicsMotor, "m6", labels=("rig",))
+		b = Component(EpicsMotor, "m7", labels=("rig",))
+		r = Component(EpicsMotor, "m8", labels=("rig",))
+
+
+	rig = MyRig("prj:", name="rig")
+
+Then in an ipython session:
+
+.. code-block:: python
+
+	In [1]: wa
+	general
+	  Positioner                     Value       Low Limit   High Limit  Offset     
+	  m1                             1.0         -100.0      100.0       0.0        
+	  m2                             0.0         -100.0      100.0       0.0        
+
+	  Local variable name                    Ophyd name (to be recorded as metadata)
+	  m1                                     m1                                    
+	  m2                                     m2                                    
+
+	rig
+	  Positioner                     Value       Low Limit   High Limit  Offset     
+	  rig_b                          0.0         -100.0      100.0       0.0        
+	  rig_l                          0.0         -100.0      100.0       0.0        
+	  rig_r                          0.0         -100.0      100.0       0.0        
+	  rig_t                          0.0         -100.0      100.0       0.0        
+
+	  Local variable name                    Ophyd name (to be recorded as metadata)
+	  rig.b                                  rig_b                                 
+	  rig.l                                  rig_l                                 
+	  rig.r                                  rig_r                                 
+	  rig.t                                  rig_t                                 
+
 
 .. automodule:: ophyd.signal

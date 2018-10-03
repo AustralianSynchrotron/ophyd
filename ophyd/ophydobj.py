@@ -12,7 +12,7 @@ class Kind(IntFlag):
 
     A Device examines its components' .kind atttribute to decide whether to
     traverse it in read(), read_configuration(), or neither. Additionally, if
-    decides whether to include its name in `.hints['fields']`.
+    decides whether to include its name in `hints['fields']`.
     """
     omitted = 0b000
     normal = 0b001

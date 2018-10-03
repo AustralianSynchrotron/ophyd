@@ -44,9 +44,9 @@ The :attr:`kind` attribute takes string values of: ``config``,
 ``hinted``, ``normal``, and ``omitted``.
 These values are like bit flags, a signal could have multiple values.
 
-The value may be set either when the :class:`Signal` is created or
+The value may be set either when the :class:`~signal.Signal` is created or
 programmatically.
-Use the :attr:`kind` attribute when creating a :class:`Signal`
+Use the :attr:`kind` attribute when creating a :class:`~signal.Signal`
 or :class:`Component`, such as:
 
 .. code-block:: python
@@ -64,7 +64,7 @@ or, as a convenient shortcut (eliminates the import)
   camera.stats2.total.kind = 'hinted'
 
 With ophyd v1.2.0 or higher, use :attr:`kind` instead of setting
-the :attr:`hints` attribute of the :class:`Device`.  See 
+the :attr:`hints` attribute of the :class:`~device.Device`.  See 
 :ref:`hints_fields` for more details.
 
 .. index:: labels attribute
@@ -73,7 +73,7 @@ the :attr:`hints` attribute of the :class:`Device`.  See
 :attr:`labels`
 -------------
 
-:class:`Signal` and :class:`Device` now accept 
+:class:`~signal.Signal` and :class:`~device.Device` now accept 
 a :attr:`labels` attribute.  The value is a list of text strings
 --- presumed but not (yet) forced to be strings --- which the user can use
 for grouping and displaying available hardware or other ophyd constructs. 

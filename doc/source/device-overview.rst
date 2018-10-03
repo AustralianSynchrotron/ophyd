@@ -8,7 +8,7 @@
 Usage
 =====
 
-The core class of :mod:`ophyd` is :class:`Device` which encodes the
+The core class of :mod:`ophyd` is :class:`~device.Device` which encodes the
 nodes of the hierarchical structure of the device and provides much of
 core API.
 
@@ -18,7 +18,7 @@ core API.
 
    Device
 
-The base :class:`Device` is not particularly useful on it's own, it
+The base :class:`~device.Device` is not particularly useful on it's own, it
 must be sub-classed to provide it with components to do something
 with.
 
@@ -116,10 +116,10 @@ NSLS-II-isms that should be corrected (or at least acknowledged and
 documented).
 
 
-:class:`Device`
+:class:`~device.Device`
 ===============
 
-:class:`Device` adds a number of additional attributes beyond the
+:class:`~device.Device` adds a number of additional attributes beyond the
 required :mod:`bluesky` API and what is inherited from :class:`~ohpyd.ophydobj.OphydObj`
 for run-time configuration
 
@@ -150,7 +150,7 @@ and static information about the object
                               (provisional)
  ===========================  ========================================================
 
-:class:`Device` also has two class-level attributes to control the default contents of
+:class:`~device.Device` also has two class-level attributes to control the default contents of
 :attr:`read_attrs` and :attr:`configuration_attrs`.
 
  ====================================  ========================================================
@@ -189,7 +189,7 @@ data from an event stream.
 There are two different locations where the 
 ``hints`` dictionary is created.
 
-1. during the specification of an ophyd :class:`Device`
+1. during the specification of an ophyd :class:`~device.Device`
 1. configuration of the ``start`` document by a :mod:`bluesky` plan
 
 The ``hints`` dictionary has well-known keys.
@@ -232,7 +232,8 @@ Examples:
   sca.hints == {'fields': [sca.channels.name]}
 
 To ensure internal consistency, the ``hints`` attribute of any 
-:class:`Signal` or :class:`Device` cannot be set directly. [#use_kind_not_fit]_
+:class:`~signal.Signal` or :class:`~device.Device` cannot be set 
+directly. [#use_kind_not_fit]_
 Instead of:
 
 .. code-block:: python
@@ -301,10 +302,10 @@ In the *Best Effort Callback* from :mod:`bluesky`, if ``hints["gridding"]`` exis
 is ``"rectilinear"``, then use LiveGrid, otherwise use LivePlot.
 
 
-:class:`Component`
-------------------
+:class:`~device.Component`
+--------------------------------
 
-The :class:`Compent` class is a python descriptor_ which override the
+The :class:`~device.Component` class is a python descriptor_ which override the
 behavior on attribute access.  This allows us to use a declarative
 style to define the software representation of the hardware.  The best
 way to understand ::
@@ -392,10 +393,33 @@ right before it was staged.
 Implicit Triggering
 -------------------
 
-
 Count Time
 ----------
 
+ComponentMeta
+-------------
+
+All of this is enabled by :class:`ComponentMeta` class which works
+with the :class:`~device.Component` instances to provide the :class:`~device.Device`
+with enough semantics to implement generic versions of the
+:mod:`bluesky` interface.  As a metaclass, this extends the behavior
+of :meth:`__new__` and :meth:`__preapare__` which are used while
+creating :class:`type` instances that are classes in Python.  We use
+this chance to identify the relevant children, do some validation on the
+component names (to not shadow any other part of the API) and tell the
+component instances what their name on the device is.
+
+With python 3.6 much of this functionally is available on plain
+classes (via ``__init__subclass__``, ``__set_name__``, class dict
+guaranteed to be ordered).  Hence, this meta-class maybe simplified or
+eliminated in the future.
+
+.. autosummary::
+   :toctree: generated
+
+   ComponentMeta
+   ComponentMeta.__new__
+   ComponentMeta.__prepare__
 
 Low level API
 =============

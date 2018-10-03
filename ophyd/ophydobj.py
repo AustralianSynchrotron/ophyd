@@ -41,8 +41,9 @@ class OphydObject:
         ex ``getattr(self.parent, self.attr_name) is self``
     parent : parent, optional
         The object's parent, if it exists in a hierarchy
-    kind : a member the Kind IntEnum (or equivalent integer), optional
-        Default is Kind.normal. See Kind for options.
+    kind : a member of the :class:`~ophydobj.Kind` :class:`~enum.IntEnum` 
+        (or equivalent integer), optional
+        Default is ``Kind.normal``. See :class:`~ophydobj.Kind` for options.
 
     Attributes
     ----------

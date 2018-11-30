@@ -117,7 +117,7 @@ documented).
 
 
 :class:`~device.Device`
-===============
+=======================
 
 :class:`~device.Device` adds a number of additional attributes beyond the
 required :mod:`bluesky` API and what is inherited from :class:`~ohpyd.ophydobj.OphydObj`

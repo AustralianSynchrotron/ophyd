@@ -71,7 +71,7 @@ the :attr:`hints` attribute of the :class:`~device.Device`.  See
 .. _labels:
 
 :attr:`labels`
--------------
+--------------
 
 :class:`~signal.Signal` and :class:`~device.Device` now accept 
 a :attr:`labels` attribute.  The value is a list of text strings

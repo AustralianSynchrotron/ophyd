@@ -179,18 +179,16 @@ and static information about the object
 :attr:`hints`
 -------------
 
-The :attr:`hints` attribute is a dictionary that
-provides information about an :mod:`ophyd` device to :mod:`bluesky` callbacks
-that advise how that device should be handled by the callback.
-While it could be used for many purposes, its first use has been to
-direct the selection of the relevant axes and signals to use when plotting
-data from an event stream.
+The :attr:`hints` attribute is a dictionary that provides information about an
+:mod:`ophyd` device to :mod:`bluesky` callbacks that advise how that device
+should be handled by the callback.  While it could be used for many purposes,
+its first use has been to direct the selection of the relevant axes and signals
+to use when plotting data from an event stream.
 
-There are two different locations where the 
-``hints`` dictionary is created.
+There are two different locations where the ``hints`` dictionary is created.
 
-1. during the specification of an ophyd :class:`~device.Device`
-1. configuration of the ``start`` document by a :mod:`bluesky` plan
+1. During the specification of an ophyd :class:`~device.Device`
+1. Configuration of the ``start`` document by a :mod:`bluesky` plan
 
 The ``hints`` dictionary has well-known keys.
 
@@ -206,7 +204,8 @@ Key                  Description of value
 
 The ``hints`` dictionary may also have custom keys used by the custom support.
   
-* example using the *ad hoc* ``vis`` key in the creation of an :mod:`ophyd` detector Device::
+* example using the *ad hoc* ``vis`` key in the creation of an :mod:`ophyd`
+  detector Device::
 
 	self.hints = {'vis': 'placeholder'}
 
@@ -220,8 +219,8 @@ The ``hints`` dictionary may also have custom keys used by the custom support.
 ``hints["fields"]``
 ^^^^^^^^^^^^^^^^^^^
 
-``fields`` is a list of ophyd object name(s) to be used as dependent axes
-for visualization callbacks.  The object name(s) must appear in the dictionary
+``fields`` is a list of ophyd object name(s) to be used as dependent axes for
+visualization callbacks.  The object name(s) must appear in the dictionary
 returned by the device's ``read()`` method.
 
 Examples:
@@ -231,10 +230,9 @@ Examples:
   quadem.hints == {'fields': ['quadem_current1_mean_value']}
   sca.hints == {'fields': [sca.channels.name]}
 
-To ensure internal consistency, the ``hints`` attribute of any 
-:class:`~signal.Signal` or :class:`~device.Device` cannot be set 
-directly. [#use_kind_not_fit]_
-Instead of:
+To ensure internal consistency, the ``hints`` attribute of any
+:class:`~signal.Signal` or :class:`~device.Device` cannot be set directly.
+[#use_kind_not_fit]_ Instead of:
 
 .. code-block:: python
 
@@ -305,10 +303,10 @@ is ``"rectilinear"``, then use LiveGrid, otherwise use LivePlot.
 :class:`~device.Component`
 --------------------------------
 
-The :class:`~device.Component` class is a python descriptor_ which override the
-behavior on attribute access.  This allows us to use a declarative
-style to define the software representation of the hardware.  The best
-way to understand ::
+The :class:`~device.Component` class is a python descriptor_ which overrides
+the behavior on attribute access.  This allows us to use a declarative style to
+define the software representation of the hardware.  The best way to 
+understand::
 
   class Foo(Device):
       bar = Cpt(EpicsSignal, ':bar', string=True)
